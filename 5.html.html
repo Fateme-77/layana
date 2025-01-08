@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=5.0">
+    <title>Giftbox Customization</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f4ef;
+            color: #4f4f4f;
+        }
+
+        header {
+            background-color: #eff5ef;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            display: flex;
+            margin: 20px auto;
+            max-width: 1500px;
+            padding: 0 20px;
+        }
+
+        .filters {
+            flex: 1;
+            margin-right: 30px;
+            padding: 20px;
+            background-color: #f7f4ef;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .filters h3 {
+            color: #8c6e3d;
+        }
+
+        .filters label {
+            display: block;
+            margin-bottom: 30px;
+        }
+
+        .filters select {
+            width: 100%;
+            padding: 20px;
+            border-radius: 18px;
+            border: 3px solid #ddd;
+        }
+
+        .filters .delete-filters {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .filters .delete-filters button {
+            background-color:  #d5852b;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .main-content {
+            flex: 3;
+        }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+        }
+
+        .product-item {
+            display: flex;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .product-item img {
+            max-width: 200px;
+            height: auto;
+            margin-right: 20px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .product-item img:hover {
+            transform: scale(1.30);
+        }
+
+        .ai-tool {
+            margin: 20px 0;
+        }
+
+        .ai-tool textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .ai-tool button {
+            background-color: #d5852b;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .ai-generated {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .ai-generated h4 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #de951d;
+        }
+
+        .ai-generated .giftbox-items {
+            display: flex;
+            justify-content: center;
+            gap: 25px; /* 1cm gap */
+            margin: 0 auto;
+        }
+
+        .ai-generated .giftbox-item {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .ai-generated .giftbox-item img {
+            max-width: 120px; /* Standard image width */
+            height: 120px; /* Standard image height */
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            object-fit: cover;
+        }
+
+        .design-options {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .design-options label {
+            margin-bottom: 15px;
+        }
+
+        .design-options select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .personalize {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .personalize label {
+            margin-bottom: 15px;
+        }
+
+        .personalize select, .personalize textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .final-product {
+            margin-top: 30px;
+            text-align: center;
+            background-color: #eff5ef;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .final-product img {
+            max-width: 300px;
+            height: auto;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+
+        .final-product p {
+            font-size: 20px;
+            color: #6e4c1e;
+        }
+
+        .price-slider {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .price-slider input[type="number"] {
+            width: 80px;
+            padding: 5px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .price-slider span {
+            margin: 0 5px;
+            font-size: 16px;
+        }
+
+        .discount-section {
+            margin-top: 20px;
+        }
+
+        .discount-section input[type="text"] {
+            padding: 8px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Box It Yourself!</h1>
+    <p>Your configurator for individual gift boxes</p>
+</header>
+
+<div class="container">
+    <div class="filters">
+        <h3>Filters</h3>
+        <label>Occasion:
+            <select>
+                <option>All</option>
+                <option>Birthday</option>
+                <option>Anniversary</option>
+                <option>Christmas</option>
+                <option>Thank You</option>
+                <option>Recovery Cheer-Up</option>
+                <option>Birth</option>
+                <option>Marriage</option>
+            </select>
+        </label>
+
+        <!-- Updated Price Slider -->
+        <div class="price-slider">
+            <label for="min-price">Price Range:</label>
+            <input type="number" id="min-price" name="min-price" value="10" min="10" max="100" step="1">
+            <span>-</span>
+            <input type="number" id="max-price" name="max-price" value="50" min="10" max="100" step="1">
+            <span>€</span>
+        </div>
+
+        <label>Product Types:
+            <select>
+                <option>All</option>
+                <option>Snacks</option>
+                <option>Technique Tools</option>
+                <option>Sports</option>
+                <option>Clothes</option>
+                <option>Drinks</option>
+            </select>
+        </label>
+
+        <label>Ingredients:
+            <select>
+                <option>All</option>
+                <option>Vegan</option>
+                <option>Alcohol Free</option>
+                <option>High Protein</option>
+                <option>Low Sugar</option>
+            </select>
+        </label>
+
+        <div class="delete-filters">
+            <button>Delete All Filters</button>
+
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="ai-tool">
+            <h3>Use AI and create a box with your own ideas</h3>
+            <textarea rows="3" placeholder="Describe your ideal gift box..."></textarea>
+            <button>Create with AI</button>
+            <div class="ai-generated">
+                <h3>Best Sellers in Gift Boxes</h3>
+                <div class="giftbox-items">
+                    <div class="giftbox-item">
+                        <img src="images/romantic-evening-set.jpg" alt="Romantic Evening Set">
+<img 
+    src="images/sample.jpg" 
+    alt="Giftbox Image" 
+    style="max-width: 150px; height: 150px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); border-radius: 5px; object-fit: cover; transition: transform 0.3s ease-in-out;" 
+    onmouseover="this.style.transform='scale(1.3)'" 
+    onmouseout="this.style.transform='scale(1)'"
+>
+                        <p>Romantic Evening Set</p>
+                    </div>
+                    <div class="giftbox-item">
+                        <img src="images/relaxation-spa-kit.jpg" alt="Relaxation & Spa Kit">
+                        <p>Relaxation & Spa Kit</p>
+                    </div>
+                    <div class="giftbox-item">
+                        <img src="images/gourmet-treats.jpg" alt="Gourmet Treats Selection">
+                        <p>Gourmet Treats Selection</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 1 -->
+        <div class="step">
+            <h2>Step 1: Choose Your Products</h2>
+            <div class="products">
+                <div class="product-item">
+                    <img src="images/chocolate-gift.jpg" alt="Chocolate Gift Set">
+                    <p>Chocolate Gift Set</p>
+                </div>
+                <div class="product-item">
+                    <img src="images/luxury-candle.jpg" alt="Luxury Candle">
+                    <p>Luxury Candle</p>
+                </div>
+                <div class="product-item">
+                    <img src="images/gourmet-snacks.jpg" alt="Gourmet Snacks">
+                    <p>Gourmet Snacks</p>
+                </div>
+                <div class="product-item">
+                    <img src="images/tea-selection.jpg" alt="Tea Selection">
+                    <p>Tea Selection</p>
+                </div>
+            </div>
+        </div>
+
+         <!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Design Your Package</title>
+    <style>
+        /* استایل برای نوع بسته‌بندی */
+        .package-options {
+            display: flex;
+            gap: 150px;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .option img {
+            width: 150px;
+            height: 150px;
+            border-radius: 100px;
+            object-fit: cover;
+        }
+
+        .option p {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .preview img {
+            max-width: 200px;
+            border-radius: 5px;
+        }
+
+
+
+        /* استایل کلی صفحه */
+        body {
+            font-family: Arial, sans-serif;
+            direction: ltr;
+            text-align: left;
+            margin: 100;
+            padding: 20px;
+            background-color: #f7f4ef;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        select {
+            width: 200px;
+            padding: 8px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Step 2 -->
+    <div class="design-options">
+        <h2>Step 2: Design Your Package</h2>
+
+        <!-- انتخاب رنگ بسته -->
+        <label for="color-choice">Color:</label>
+        <select id="color-choice">
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+            <option value="gold">Gold</option>
+            <option value="silver">Silver</option>
+        </select>
+
+        <!-- انتخاب نوع بسته‌بندی به صورت تصاویر -->
+        <label>Package Type:</label>
+        <div class="package-options">
+            <!-- گزینه Box -->
+            <div class="option" onclick="setPackageType('box')">
+                <img id="box-image" src="images/box.jpg" alt="Box">
+                <p>Box</p>
+            </div>
+
+            <!-- گزینه Bag -->
+            <div class="option" onclick="setPackageType('bag')">
+                <img id="bag-image" src="images/bag.jpg" alt="Bag">
+                <p>Bag</p>
+            </div>
+
+            <!-- گزینه Basket -->
+            <div class="option" onclick="setPackageType('basket')">
+                <img id="basket-image" src="images/basket.jpg" alt="Basket">
+                <p>Basket</p>
+            </div>
+        </div>
+
+        <!-- انتخاب طرح -->
+        <label for="design-style">Design:</label>
+        <select id="design-style">
+            <option value="minimal">Minimal</option>
+            <option value="floral">Floral</option>
+            <option value="modern">Modern</option>
+            <option value="festive">Festive</option>
+        </select>
+
+        <!-- پیش‌نمایش بسته -->
+        <div class="preview">
+            <h3>Package Preview</h3>
+            <img id="package-preview" src="images/default-package.jpg" alt="Package Preview">
+        </div>
+    </div>
+
+    <script>
+        // تغییر نوع بسته‌بندی با کلیک روی هر یک از تصاویر
+        function setPackageType(type) {
+            let imageSrc = '';
+
+            // انتخاب تصویر مربوط به هر نوع بسته
+            switch (type) {
+                case 'box':
+                    imageSrc = 'images/box.jpg'; // تصویر مربوط به Box
+                    break;
+                case 'bag':
+                    imageSrc = 'images/bag.jpg'; // تصویر مربوط به Bag
+                    break;
+                case 'basket':
+                    imageSrc = 'images/basket.jpg'; // تصویر مربوط به Basket
+                    break;
+                default:
+                    imageSrc = 'images/default-package.jpg'; // پیش‌فرض
+            }
+
+            // به روز رسانی تصویر پیش‌نمایش
+            const packagePreview = document.getElementById('package-preview');
+            packagePreview.src = imageSrc;
+        }
+
+        // تغییر پیش‌نمایش رنگ بسته
+        const colorChoice = document.getElementById('color-choice');
+        colorChoice.addEventListener('change', (e) => {
+            const selectedColor = e.target.value;
+            const packagePreview = document.getElementById('package-preview');
+            packagePreview.src = `images/package-${selectedColor}.jpg`;
+        });
+
+        // تغییر طرح بسته
+        const designStyle = document.getElementById('design-style');
+        designStyle.addEventListener('change', (e) => {
+            const selectedStyle = e.target.value;
+            const packagePreview = document.getElementById('package-preview');
+            packagePreview.src = `images/package-${selectedStyle}.jpg`;
+        });
+
+        // آپلود تصویر دلخواه
+        const customDesignInput = document.getElementById('custom-design');
+        customDesignInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    const packagePreview = document.getElementById('package-preview');
+                    packagePreview.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
+
+        <!-- Step 3 -->
+        <div class="step">
+            <h2>Step 3: Personalize Your Gift</h2>
+            <div class="personalize">
+                <label>Choose a Card:
+                    <select>
+                        <option>Birthday</option>
+                        <option>Thank You</option>
+                        <option>Anniversary</option>
+                    </select>
+                </label>
+
+                <label>Add a Message:
+                    <textarea rows="4" placeholder="Write your message here..."></textarea>
+                </label>
+            </div>
+        </div>
+
+        <!-- Final Product Section -->
+        <div class="step">
+            <h2>Giftbox Preview</h2>
+            <div class="summary">
+                <p>Products:</p>
+                <ul>
+                    <li>Chocolate Gift Set</li>
+                    <li>Luxury Candle</li>
+                </ul>
+                <p>Personalization:</p>
+                <ul>
+                    <li>Card: Thank You</li>
+                    <li>Message: "You're amazing!"</li>
+                </ul>
+            </div>
+
+            <div class="final-product">
+                <h2>Your Final Product</h2>
+                <img src="images/image1.jpg" alt="New Image">
+                <p>Your carefully curated giftbox with all the personalized touches.</p>
+            </div>
+
+            <div class="discount-section">
+    <label>Do you have a discount code?</label>
+    <input type="text" placeholder="Enter code here">
+    <button class="apply-discount">Apply Discount</button>
+</div>
+
+<p class="total-price">Total Price: €50</p>
+
+<div class="buttons">
+    <button>Add to Cart</button>
+    <button>Order Now</button>
+</div>
+
+<style>
+    .apply-discount {
+        background-color: #d5852b;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .apply-discount:hover {
+        background-color: #f1a14c;
+    }
+
+    .buttons button {
+        padding: 12px 25px;
+        border-radius: 5px;
+        cursor: pointer;
+        background-color: #d5852b;
+        color: white;
+        border: none;
+        transition: background-color 0.3s;
+    }
+
+    .buttons button:hover {
+        background-color: #f1a14c;
+    }
+</style>ton>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
